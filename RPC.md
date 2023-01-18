@@ -35,8 +35,8 @@ systemctl restart okp4d && journalctl -u okp4d -f -o cat
 `Your_interval` - it is value of `snapshot-interval`/`pruning-keep-every`
 
 ```
-echo "$(axelard tendermint show-node-id)@$(curl ifconfig.me):26656"
-echo "$(axelard tendermint show-node-id)@$(curl ifconfig.me):26657"
+echo "$(okp4d tendermint show-node-id)@$(curl ifconfig.me):26656"
+echo "$(okp4d tendermint show-node-id)@$(curl ifconfig.me):26657"
 ```
 
 ### Now just insert the values:
