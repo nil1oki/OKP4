@@ -24,7 +24,7 @@ systemctl restart okp4d && journalctl -u okp4d -f -o cat
 
 ## You shoud know 4 things:
 
-`Your_server_IP` - find out ip of your server with State Sync--> `curl ifconfig.me`
+`Your_server_IP` - find out ip of your server with State Sync--> `wget -qO- eth0.me`
 `Your_rpc_port` (default is 26657)
 `Your_p2p_port` (default is 26656)
 `Your_node_id`: find out node_id of the RPC server--> `curl localhost:26657/status | jq '.result.node_info.id'` 
