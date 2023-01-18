@@ -43,6 +43,11 @@ echo "$(okp4d tendermint show-node-id)@$(curl ifconfig.me):26657"
 Adding public RPC node to `persistance_peer` in `config.toml`.
 Here you need `<Your_node_id>`, `<Your_server_IP>`, `<Your_p2p_port>`.
 
+```
+peers="<Your_node_id>@<Your_server_IP>:<Your_p2p_port>"; \
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.okp4d/config/config.toml
+```
+
 Adding variables.
 
 ```
