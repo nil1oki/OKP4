@@ -1,0 +1,32 @@
+# Setting `app.toml`
+
+```
+sed -i.bak -e "s/^pruning *=.*/pruning = \""custom"\"/" $HOME/.okp4d/config/app.toml
+sed -i.bak -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \""100"\"/" $HOME/.okp4d/config/app.toml
+sed -i.bak -e "s/^pruning-keep-every *=.*/pruning-keep-every = \""1000"\"/" $HOME/.okp4d/config/app.toml
+sed -i.bak -e "s/^pruning-interval *=.*/pruning-interval = \""10"\"/" $HOME/.okp4d/config/app.toml
+sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \""1000"\"/" $HOME/.okp4d/config/app.toml
+sed -i.bak -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \""2"\"/" $HOME/.okp4d/config/app.toml
+```
+
+Setting `config.toml`
+
+```
+sed -i.bak -e "s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://0.0.0.0:26657\"%" $HOME/.okp4d/config/config.toml
+sed -i.bak -E "s|^(pex[[:space:]]+=[[:space:]]+).*$|\1true|" $HOME/.okp4d/config/config.toml
+```
+
+Restart
+
+```
+systemctl restart okp4d && journalctl -u okp4d -f -o cat
+```
+
+You shoud know 4 things:
+
+`Your_server_IP` - find out ip of your server with State Sync--> `curl ifconfig.me`
+`Your_rpc_port` (default is 26657)
+`Your_p2p_port` (default is 26656)
+`Your_node_id`: find out node_id of the RPC server--> `curl localhost:26657/status | jq '.result.node_info.id'` 
+`Your_interval` - it is value of `snapshot-interval`/`pruning-keep-every`
+
