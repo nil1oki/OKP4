@@ -74,3 +74,16 @@ sudo systemctl stop okp4d && \
 icad tendermint unsafe-reset-all --home $HOME/.okp4 && \
 sudo systemctl restart okp4d && journalctl -u okp4d -f -o cat
 ```
+
+```
+peers="052e10ce23cce3249f61853e2ca6a63102b7bddb@5.161.97.198:26656"; \
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.okp4d/config/config.toml
+```
+
+```
+SNAP_RPC="http://5.161.97.198:26657"; \
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 1000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash); \
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+```
