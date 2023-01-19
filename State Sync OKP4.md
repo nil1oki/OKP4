@@ -15,15 +15,15 @@ s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.okpd/config/config.toml
 
-sudo systemctl stop okp4
+sudo systemctl stop okp4d
 okp4d tendermint unsafe-reset-all --home /root/.okp4d --keep-addr-book
 
-sudo systemctl restart okp4 && journalctl -u okp4 -f -o cat
+sudo systemctl restart okp4d && journalctl -u okp4d -f -o cat
 ```
 
 Optional - disable synchronization with State Sync after synchronization
 
 ```
 sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1false|" $HOME/.okp4d/config/config.toml
-sudo systemctl restart okp4 && journalctl -u okp4 -f -o cat
+sudo systemctl restart okp4d && journalctl -u okp4d -f -o cat
 ```
