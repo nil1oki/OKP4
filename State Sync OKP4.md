@@ -27,3 +27,29 @@ Optional - disable synchronization with State Sync after synchronization
 sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1false|" $HOME/.okp4d/config/config.toml
 sudo systemctl restart okp4d && journalctl -u okp4d -f -o cat
 ```
+
+## State2
+
+```
+sudo systemctl stop okp4d
+
+SNAP_RPC="http://5.161.97.198:26657"
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 1000))
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+peers="052e10ce23cce3249f61853e2ca6a63102b7bddb@5.161.97.198:26656"
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.okp4d/config/config.toml
+
+sed -i 's|^enable *=.*|enable = true|' $HOME/.okp4d/config/config.toml
+sed -i 's|^rpc_servers *=.*|rpc_servers = "'$SNAP_RPC,$SNAP_RPC'"|' $HOME/.okp4d/config/config.toml
+sed -i 's|^trust_height *=.*|trust_height = '$BLOCK_HEIGHT'|' $HOME/.okp4d/config/config.toml
+sed -i 's|^trust_hash *=.*|trust_hash = "'$TRUST_HASH'"|' $HOME/.okp4d/config/config.toml
+
+sudo systemctl restart okp4d && journalctl -u okp4d -f -o cat
+```
+
+
