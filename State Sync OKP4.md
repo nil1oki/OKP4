@@ -1,4 +1,4 @@
-## State Sync
+## State Sync OKP4
 
 ```
 peers="052e10ce23cce3249f61853e2ca6a63102b7bddb@5.161.97.198:26656"; \
