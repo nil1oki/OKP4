@@ -4,6 +4,10 @@ Stop node
 systemctl stop okp4d
 ```
 
+```
+okp4d tendermint unsafe-reset-all --home $HOME/.okp4d --keep-addr-book
+```
+
 Delete the .data directory and create an empty directory
 
 ```
