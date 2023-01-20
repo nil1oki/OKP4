@@ -7,8 +7,8 @@ systemctl stop okp4d
 Delete the .data directory and create an empty directory
 
 ```
-rm -rf $HOME/.okp4/data/
-mkdir $HOME/.okp4/data/
+rm -rf $HOME/.okp4d/data/
+mkdir $HOME/.okp4d/data/
 ```
 
 Download the archive
