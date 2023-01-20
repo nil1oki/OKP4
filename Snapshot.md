@@ -1,3 +1,9 @@
+Stop node
+
+```
+systemctl stop okp4d
+```
+
 Delete the .data directory and create an empty directory
 
 ```
